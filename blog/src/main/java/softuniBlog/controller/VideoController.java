@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import softuniBlog.bindingModel.VideoBindingModel;
@@ -52,6 +53,10 @@ public class VideoController {
     @PostMapping("/video/create")
     @PreAuthorize("isAuthenticated()")
     public String createProcess(VideoBindingModel videoBindingModel) {
+
+        if (StringUtils.isEmpty(videoBindingModel.getTitle()) || StringUtils.isEmpty(videoBindingModel.getFullUrl())){
+            return "redirect:/video/create";
+        }
 
         UserDetails user = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();

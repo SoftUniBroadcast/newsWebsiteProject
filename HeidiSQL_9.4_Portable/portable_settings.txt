@@ -8,20 +8,20 @@ ColWidths_frmTableEditor.listColumns<|||>1<|||>54,100,156,90,60,65,50,119,130,14
 ColsVisible_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
 ColPositions_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
 ColSort_frmTableEditor.listColumns<|||>1<|||>-1,0
-ColWidths_frmTableEditor.treeIndexes<|||>1<|||>331,100,80
+ColWidths_frmTableEditor.treeIndexes<|||>1<|||>324,100,80
 ColsVisible_frmTableEditor.treeIndexes<|||>1<|||>0,1,2
 ColPositions_frmTableEditor.treeIndexes<|||>1<|||>0,1,2
 ColSort_frmTableEditor.treeIndexes<|||>1<|||>-1,0
-ColWidths_frmTableEditor.listForeignKeys<|||>1<|||>89,80,100,80,80,80
+ColWidths_frmTableEditor.listForeignKeys<|||>1<|||>82,80,100,80,80,80
 ColsVisible_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
 ColPositions_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
 ColSort_frmTableEditor.listForeignKeys<|||>1<|||>-1,0
 CoolBand0Index<|||>3<|||>0
 CoolBand0Break<|||>3<|||>1
-CoolBand0Width<|||>3<|||>938
+CoolBand0Width<|||>3<|||>928
 CoolBand1Index<|||>3<|||>1
 CoolBand1Break<|||>3<|||>1
-CoolBand1Width<|||>3<|||>938
+CoolBand1Width<|||>3<|||>928
 MainWinOnMonitor<|||>3<|||>0
 ColWidths_MainForm.ListDatabases<|||>1<|||>150,80,50,50,50,50,50,50,50,50,120
 ColsVisible_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
@@ -47,7 +47,7 @@ ColWidths_MainForm.ListTables<|||>1<|||>120,70,70,120,120,70,100,50,70,70,70,70,
 ColsVisible_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,18
 ColPositions_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
 ColSort_MainForm.ListTables<|||>1<|||>0,0
-MemoEditorWidth<|||>3<|||>130
+MemoEditorWidth<|||>3<|||>136
 Servers\Unnamed\SessionCreated<|||>1<|||>2016-10-31 14:03:39
 Servers\Unnamed\Host<|||>1<|||>127.0.0.1
 Servers\Unnamed\WindowsAuth<|||>3<|||>0
@@ -77,7 +77,7 @@ Servers\Unnamed\SSL_Cert<|||>1<|||>
 Servers\Unnamed\SSL_CA<|||>1<|||>
 Servers\Unnamed\SSL_Cipher<|||>1<|||>
 Servers\Unnamed\ServerVersionFull<|||>1<|||>10.1.13-MariaDB - mariadb.org binary distribution
-Servers\Unnamed\ConnectCount<|||>3<|||>19
+Servers\Unnamed\ConnectCount<|||>3<|||>20
 Servers\Unnamed\ServerVersion<|||>3<|||>100113
-Servers\Unnamed\LastConnect<|||>1<|||>2016-12-15 13:23:46
+Servers\Unnamed\LastConnect<|||>1<|||>2016-12-15 23:24:15
 Servers\Unnamed\lastUsedDB<|||>1<|||>javablog

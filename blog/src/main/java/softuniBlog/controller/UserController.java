@@ -272,7 +272,7 @@ public class UserController {
             String originalFileName = file.getOriginalFilename();
 
             File imageFile = new File
-                    ("D:\\new blog\\blog\\src\\main\\resources\\static\\images", originalFileName);
+                    ("D:\\javaBroadcast\\newsWebsiteProject\\blog\\src\\main\\resources\\static\\images\\", originalFileName);
 
             try {
                 file.transferTo(imageFile);

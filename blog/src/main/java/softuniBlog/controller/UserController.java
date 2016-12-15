@@ -10,7 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import softuniBlog.bindingModel.PasswordEditBindingModel;
 import softuniBlog.bindingModel.UserBindingModel;
 import softuniBlog.entity.*;
 import softuniBlog.repository.PositionRepository;
@@ -158,5 +160,63 @@ public class UserController {
         return "base-layout";
     }
 
+    @GetMapping("/{id}/edit-password")
+    @PreAuthorize("isAuthenticated()")
+    public String editPassword(Model model, @PathVariable Integer id){
+        if (!this.userRepository.exists(id)) {
+            return "redirect:/profile";
+        }
+
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        User loggedUser = this.userRepository.findByEmail(principal.getUsername());
+
+        User user = this.userRepository.findOne(id);
+
+        if (!loggedUser.equals(user)){
+            return "redirect:/login";
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("view", "user/edit-password");
+
+        return "base-layout";
+    }
+
+    @PostMapping("/{id}/edit-password")
+    @PreAuthorize("isAuthenticated()")
+    public String editPasswordProcess(@PathVariable Integer id, PasswordEditBindingModel passwordEditBindingModel) {
+        if (!this.userRepository.exists(id)) {
+            return "redirect:/profile";
+        }
+
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        User loggedUser = this.userRepository.findByEmail(principal.getUsername());
+
+        User user = this.userRepository.findOne(id);
+
+        if (!loggedUser.equals(user)){
+            return "redirect:/login";
+        }
+
+
+        if (!StringUtils.isEmpty(passwordEditBindingModel.getPassword())
+                && !StringUtils.isEmpty(passwordEditBindingModel.getConfirmPassword())) {
+
+            if (passwordEditBindingModel.getPassword().equals(passwordEditBindingModel.getConfirmPassword())) {
+
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+                user.setPassword(bCryptPasswordEncoder.encode(passwordEditBindingModel.getPassword()));
+            }
+        }
+
+        this.userRepository.saveAndFlush(user);
+
+        return "redirect:/profile";
+    }
 }
 

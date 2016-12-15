@@ -9,6 +9,12 @@
 
                     <header>
                         <h2>
+                            <a th:href="@{/{id}/edit-password(id=${user.id})}"> Edit Password</a>
+                        </h2>
+                    </header>
+
+                    <header>
+                        <h2>
                             <a th:href="@{/{id}/articles(id=${user.id})}"
                                th:text="${'My articles (' + #sets.size(user.getArticles()) + ')'}">
                             </a>

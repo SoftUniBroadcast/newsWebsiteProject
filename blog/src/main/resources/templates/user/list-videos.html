@@ -24,8 +24,8 @@
                             th:text="${video.article.title}"></a>
                         </td>
                         <td>
-                            <a href="#">Edit</a>
-                            <a href="#">Delete</a>
+                            <a th:href="@{/video/edit/{id}(id = ${video.id})}">Edit</a>
+                            <a th:href="@{/video/delete/{id}(id = ${video.id})}">Delete</a>
                         </td>
                     </tr>
                     </tbody>

@@ -17,7 +17,9 @@
 
                     <tr th:each="article : ${articles}">
                         <td th:text="${article.id}"></td>
-                        <td th:text="${article.title}"></td>
+                        <td>
+                            <a th:href="@{/article/{id}(id = ${article.id})}" th:text="${article.title}"> </a>
+                        </td>
                         <td>
                             <a th:href="@{/article/edit/{id}(id = ${article.id})}">Edit</a>
                             <a th:href="@{/article/delete/{id}(id = ${article.id})}">Delete</a>

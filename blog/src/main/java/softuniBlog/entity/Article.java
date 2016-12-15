@@ -3,7 +3,9 @@ package softuniBlog.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "articles")
@@ -117,4 +119,5 @@ public class Article {
     public String getSummary() {
         return this.getContent().substring(0, this.getContent().length() / 2) + "...";
     }
+
 }

@@ -102,6 +102,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/articles")
+    @PreAuthorize("isAuthenticated()")
     public String listUserArticles(Model model, @PathVariable Integer id) {
         if (!this.userRepository.exists(id)){
             return "redirect:/profile";
@@ -130,6 +131,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/videos")
+    @PreAuthorize("isAuthenticated()")
     public String listUserVideos(Model model, @PathVariable Integer id) {
         if (!this.userRepository.exists(id)) {
             return "redirect:/profile";

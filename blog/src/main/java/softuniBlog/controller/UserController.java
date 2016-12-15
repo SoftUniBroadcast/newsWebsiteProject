@@ -12,16 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import softuniBlog.bindingModel.UserBindingModel;
-import softuniBlog.entity.Article;
-import softuniBlog.entity.Position;
-import softuniBlog.entity.Role;
-import softuniBlog.entity.User;
+import softuniBlog.entity.*;
 import softuniBlog.repository.PositionRepository;
 import softuniBlog.repository.RoleRepository;
 import softuniBlog.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -118,11 +118,40 @@ public class UserController {
         if (!loggedUser.equals(user)){
             return "redirect:/login";
         }
-        Set<Article> articles = loggedUser.getArticles();
+
+        List<Article> articles = (List<Article>) loggedUser.getArticles().stream()
+                .sorted(Comparator.comparingInt(Article::getId))
+                .collect(Collectors.toList());
 
         model.addAttribute("articles", articles);
-        model.addAttribute("user", user);
         model.addAttribute("view", "user/list-articles");
+
+        return "base-layout";
+    }
+
+    @GetMapping("/{id}/videos")
+    public String listUserVideos(Model model, @PathVariable Integer id) {
+        if (!this.userRepository.exists(id)) {
+            return "redirect:/profile";
+        }
+
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        User loggedUser = this.userRepository.findByEmail(principal.getUsername());
+
+        User user = this.userRepository.findOne(id);
+
+        if (!loggedUser.equals(user)){
+            return "redirect:/login";
+        }
+
+        List<Video> videos = (List<Video>) loggedUser.getAuthorVideos().stream()
+                .sorted(Comparator.comparingInt(Video::getId))
+                .collect(Collectors.toList());
+
+        model.addAttribute("videos", videos);
+        model.addAttribute("view", "user/list-videos");
 
         return "base-layout";
     }

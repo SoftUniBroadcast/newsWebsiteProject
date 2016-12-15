@@ -93,7 +93,7 @@ public class ArticleController {
         Article article = this.articleRepository.findOne(id);
 
         List<Video> videos = (List<Video>) article.getVideos().stream()
-                .sorted((a, b) -> b.getDateAdded().compareTo(a.getDateAdded()))
+                .sorted((a, b) -> a.getDateAdded().compareTo(b.getDateAdded()))
                 .collect(Collectors.toList());
 
         model.addAttribute("videos", videos);

@@ -15,7 +15,13 @@
                         </h2>
                     </header>
 
-
+                    <header>
+                        <h2>
+                            <a th:href="@{/{id}/videos(id=${user.id})}"
+                               th:text="${'My videos (' + #sets.size(user.getAuthorVideos()) + ')'}">
+                            </a>
+                        </h2>
+                    </header>
 
                 </div>
             </div>

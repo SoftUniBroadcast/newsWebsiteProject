@@ -40,7 +40,16 @@
 
             <div class="col-md-12">
                 <th:block th:each="video : ${videos}">
-                    <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/{videoUrl}(videoUrl = ${video.url})}" frameborder="0" allowfullscreen="true"></iframe>
+                    <h3 th:text="${video.title}"></h3>
+                    <iframe width="560" height="315"
+                            th:src="@{https://www.youtube.com/embed/{videoUrl}(videoUrl = ${video.url})}"
+                            frameborder="0" allowfullscreen="true"></iframe>
+                    <div class="date">
+                        <i>Added on</i>
+                        <span th:text="${#dates.format(video.dateAdded, 'dd-MM-yyyy')}"></span>
+                    </div>
+                    <p th:text="'Cameraman: ' + ${video.cameraman.fullName}"></p>
+
                 </th:block>
 
             </div>

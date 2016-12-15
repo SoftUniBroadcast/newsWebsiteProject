@@ -14,3 +14,4 @@ Project workflow:
 4. Created "My Articles" view from My profile page, listing all user articles in a table with options to edit/delete. Also when accessing My articles check is made on wether the logged user Id equals the one from the url (the path variable).
 5. Created Video Entity with all relations and create functionality. More details to be added in later commits.
 6. Added My videos page ("list-videos.html) and sorted articles in My Articles and videos in My Videos both by id. Also, added more info about video in Article details.
+7. Added Edit and Delete Video functionality. Check is made wether the user is admin or author of the video (with an override of isAuthor() method - isAuthor(Video video).

@@ -2,6 +2,18 @@
     <div class="container body-content">
         <div class="row">
         </div>
+
+        <div class="pull-right">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recent articles</h3>
+                </div>
+                <div class="panel-body" th:each="article : ${latestFiveArticles}">
+                    <a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.title}"></a>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-6" th:each="article : ${latestArticle}">
                 <article>

@@ -1,5 +1,7 @@
 package softuniBlog.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,6 +28,8 @@ public class User {
     private Set<Video> cameramanVideos;
 
     private Position position;
+
+    private String imagePath;
 
     public User(String email, String fullName, String password) {
         this.email = email;
@@ -126,6 +130,15 @@ public class User {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Column(name = "imagePath")
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Transient

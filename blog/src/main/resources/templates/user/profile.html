@@ -7,6 +7,8 @@
                     <br/>
                     <span th:text="${user.fullName}"></span>
 
+                    <img th:src="${user.imagePath}"/>
+
                     <header>
                         <h2>
                             <a th:href="@{/{id}/edit-password(id=${user.id})}"> Edit Password</a>

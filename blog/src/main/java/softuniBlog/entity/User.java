@@ -169,4 +169,9 @@ public class User {
     public boolean isAuthor(Video video) {
         return Objects.equals(this.getId(), video.getAuthor().getId());
     }
+
+    @Transient
+    public boolean isAuthor(Comment comment) {
+        return Objects.equals(this.getId(), comment.getAuthor().getId());
+    }
 }

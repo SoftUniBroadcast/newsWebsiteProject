@@ -81,6 +81,11 @@
                         <i>Added: </i>
                         <span th:text="${#dates.format(comment.dateAdded, 'dd-MM-yyyy HH:mm:ss')}"></span>
                     </div>
+                    <div class="pull-right" sec:authorize="isAuthenticated()"
+                              th:if="${user.isAdmin() OR user.isAuthor(comment)}">
+                        <a class="btn btn-success btn-xs" th:href="@{/comment/edit/{id}(id=${comment.id})}">Edit</a>
+                        <a class="btn btn-danger btn-xs" th:href="@{/comment/delete/{id}(id = ${comment.id})}">Delete</a>
+                    </div>
                     <br/>
                 </div>
             </div>

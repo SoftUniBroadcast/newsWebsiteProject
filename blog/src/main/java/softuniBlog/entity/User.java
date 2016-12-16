@@ -31,6 +31,8 @@ public class User {
 
     private String imagePath;
 
+    private Set<Comment> comments;
+
     public User(String email, String fullName, String password) {
         this.email = email;
         this.password = password;
@@ -40,6 +42,7 @@ public class User {
         this.articles = new HashSet<>();
         this.authorVideos = new HashSet<>();
         this.cameramanVideos = new HashSet<>();
+        this.comments = new HashSet<>();
     }
 
     public User() {    }
@@ -139,6 +142,15 @@ public class User {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    @OneToMany(mappedBy = "author")
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Transient

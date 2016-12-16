@@ -84,7 +84,7 @@ public class Video {
     }
 
     @ManyToOne()
-    @JoinColumn(nullable = false, name = "cameramanId")
+    @JoinColumn(name = "cameramanId")
     public User getCameraman() {
         return cameraman;
     }

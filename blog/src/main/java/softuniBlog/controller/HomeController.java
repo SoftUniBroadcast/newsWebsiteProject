@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import softuniBlog.entity.Article;
 import softuniBlog.entity.Category;
+import softuniBlog.entity.Comment;
 import softuniBlog.entity.Position;
 import softuniBlog.repository.ArticleRepository;
 import softuniBlog.repository.CategoryRepository;
@@ -33,12 +34,15 @@ public class HomeController {
 
         List<Article> articles = this.articleRepository.findAll();
         List<Article> latestFiveArticles = findLatestFive(articles);
-        List<Article> latestArticle = latestFiveArticles.stream()
-                .limit(1)
+        Article latestArticle = latestFiveArticles.get(0);
+
+        List<Comment> comments = latestArticle.getComments().stream()
+                .sorted((a, b) -> b.getDateAdded().compareTo(a.getDateAdded()))
                 .collect(Collectors.toList());
 
         model.addAttribute("latestFiveArticles", latestFiveArticles);
         model.addAttribute("latestArticle", latestArticle);
+        model.addAttribute("comments", comments);
         model.addAttribute("view", "home/index");
 
         return "base-layout";
@@ -68,7 +72,7 @@ public class HomeController {
     }
 
     @GetMapping("/team")
-    public String listTeam(Model model){
+    public String listTeam(Model model) {
 
         List<Position> positions = this.positionRepository.findAll().stream()
                 .filter(position -> !position.getName().equals("Guest"))

@@ -9,36 +9,37 @@
                 <div class="panel-body" th:each="article : ${latestFiveArticles}">
                     <a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.title}"></a>
                     <p>
-                        <small class="author" th:text="${'Posted on ' + #dates.format(article.dateAdded, 'dd-MM-yyyy HH:mm:ss')}"></small>
+                        <small class="author"
+                               th:text="${'Posted on ' + #dates.format(article.dateAdded, 'dd-MM-yyyy HH:mm:ss')}"></small>
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6" th:each="article : ${latestArticle}">
+            <div class="col-md-9">
                 <article>
                     <header>
-                        <h2 th:text="${article.title}"></h2>
+                        <h2 th:text="${latestArticle.title}"></h2>
                     </header>
 
-                    <p th:text="${article.content}"></p>
+                    <p th:text="${latestArticle.content}"></p>
 
                     <div class="date">
                         <i>Posted on</i>
-                        <span th:text="${#dates.format(article.dateAdded, 'dd-MM-yyyy HH:mm:ss')}"></span>
+                        <span th:text="${#dates.format(latestArticle.dateAdded, 'dd-MM-yyyy HH:mm:ss')}"></span>
                     </div>
                     <small class="author"
-                           th:text="${article.author.fullName} + ', ' + ${article.author.position.getName()}"></small>
+                           th:text="${latestArticle.author.fullName} + ', ' + ${latestArticle.author.position.getName()}"></small>
 
                     <p>
-                        <a class="btn btn-default btn-xs" th:each="tag:${article.tags}"
+                        <a class="btn btn-default btn-xs" th:each="tag:${latestArticle.tags}"
                            th:href="@{/tag/{name}(name=${tag.name})}" th:text="${tag.name}"></a>
                     </p>
                 </article>
 
                 <div class="col-md-12">
-                    <th:block th:each="video : ${article.videos}">
+                    <th:block th:each="video : ${latestArticle.videos}">
                         <h3 th:text="${video.title}"></h3>
                         <iframe width="560" height="315"
                                 th:src="@{https://www.youtube.com/embed/{videoUrl}(videoUrl = ${video.url})}"
@@ -50,6 +51,38 @@
                         <p th:text="'Cameraman: ' + ${video.cameraman.fullName}"></p>
 
                     </th:block>
+                </div>
+
+                <form class="form-horizontal" th:action="@{/article/{id}/add-comment(id=${latestArticle.id})}"
+                      method="POST">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="article_comment">Add Comment</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" rows="3" id="article_comment" name="content"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <input type="submit" class="btn btn-primary" value="Comment"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <div class="col-sm-12" th:each="comment : ${comments}">
+                    <div class="well well-sm">
+                    <b class="author"
+                           th:text="${comment.author.fullName} + ', ' + ${comment.author.position.getName() + ' :'}"></b>
+                    <h3 th:text="${comment.content}"></h3>
+                    <div class="small">
+                        <i>Added: </i>
+                        <span th:text="${#dates.format(comment.dateAdded, 'dd-MM-yyyy HH:mm:ss')}"></span>
+                    </div>
+                    <br/>
+                    </div>
                 </div>
             </div>
         </div>

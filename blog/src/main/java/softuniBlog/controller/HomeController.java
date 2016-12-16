@@ -1,18 +1,19 @@
 package softuniBlog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import softuniBlog.entity.Article;
-import softuniBlog.entity.Category;
-import softuniBlog.entity.Comment;
-import softuniBlog.entity.Position;
+import softuniBlog.entity.*;
 import softuniBlog.repository.ArticleRepository;
 import softuniBlog.repository.CategoryRepository;
 import softuniBlog.repository.PositionRepository;
+import softuniBlog.repository.UserRepository;
 
 import javax.persistence.Transient;
 import java.util.List;
@@ -28,6 +29,8 @@ public class HomeController {
     private PositionRepository positionRepository;
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -39,6 +42,17 @@ public class HomeController {
         List<Comment> comments = latestArticle.getComments().stream()
                 .sorted((a, b) -> b.getDateAdded().compareTo(a.getDateAdded()))
                 .collect(Collectors.toList());
+
+        if (!(SecurityContextHolder.getContext().getAuthentication()
+                instanceof AnonymousAuthenticationToken)) {
+
+            UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+                    .getAuthentication().getPrincipal();
+
+            User userEntity = this.userRepository.findByEmail(principal.getUsername());
+
+            model.addAttribute("user", userEntity);
+        }
 
         model.addAttribute("latestFiveArticles", latestFiveArticles);
         model.addAttribute("latestArticle", latestArticle);

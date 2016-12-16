@@ -15,3 +15,7 @@ Project workflow:
 5. Created Video Entity with all relations and create functionality. More details to be added in later commits.
 6. Added My videos page ("list-videos.html) and sorted articles in My Articles and videos in My Videos both by id. Also, added more info about video in Article details.
 7. Added Edit and Delete Video functionality. Check is made wether the user is admin or author of the video (with an override of isAuthor() method - isAuthor(Video video).
+8. Home page is editted to show latest article and a sidebar with latest five articles.
+9. Added functionality for editing password in my profile page.
+10. Added profile picture upload, "Add/change Profile Picture" button to My profile page.
+11. Added comments functionality - Comment Entity, Edit and Delete funcionality.

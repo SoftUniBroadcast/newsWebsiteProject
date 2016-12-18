@@ -120,27 +120,27 @@ public class UserController {
     }
 
     @GetMapping("/{id}/articles")
-    @PreAuthorize("isAuthenticated()")
+ //   @PreAuthorize("isAuthenticated()")
     public String listUserArticles(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
         if (!this.userRepository.exists(id)) {
             redirectAttributes.addFlashAttribute("error", "Such user doesn't exist!");
             return "redirect:/profile";
         }
 
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
+ //       UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+  //              .getAuthentication()
+  //              .getPrincipal();
 
-        User loggedUser = this.userRepository.findByEmail(principal.getUsername());
+  //      User loggedUser = this.userRepository.findByEmail(principal.getUsername());
 
         User user = this.userRepository.findOne(id);
 
-        if (!loggedUser.equals(user)) {
-            redirectAttributes.addFlashAttribute("error", "You are not authenticated!");
-            return "redirect:/login";
-        }
+//    if (!loggedUser.equals(user)) {
+//        redirectAttributes.addFlashAttribute("error", "You are not authenticated!");
+//        return "redirect:/login";
+//    }
 
-        List<Article> articles = (List<Article>) loggedUser.getArticles().stream()
+        List<Article> articles = (List<Article>) user.getArticles().stream()
                 .sorted(Comparator.comparingInt(Article::getId))
                 .collect(Collectors.toList());
 
@@ -151,26 +151,26 @@ public class UserController {
     }
 
     @GetMapping("/{id}/videos")
-    @PreAuthorize("isAuthenticated()")
+ //   @PreAuthorize("isAuthenticated()")
     public String listUserVideos(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes) {
         if (!this.userRepository.exists(id)) {
             redirectAttributes.addFlashAttribute("error", "Such user doesn't exist!");
             return "redirect:/profile";
         }
 
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
+ //   UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+ //           .getAuthentication().getPrincipal();
 
-        User loggedUser = this.userRepository.findByEmail(principal.getUsername());
+ //   User loggedUser = this.userRepository.findByEmail(principal.getUsername());
 
         User user = this.userRepository.findOne(id);
 
-        if (!loggedUser.equals(user)) {
-            redirectAttributes.addFlashAttribute("error", "You are not authenticated!");
-            return "redirect:/login";
-        }
+ //    if (!loggedUser.equals(user)) {
+ //        redirectAttributes.addFlashAttribute("error", "You are not authenticated!");
+ //        return "redirect:/login";
+ //    }
 
-        List<Video> videos = (List<Video>) loggedUser.getAuthorVideos().stream()
+        List<Video> videos = (List<Video>) user.getAuthorVideos().stream()
                 .sorted(Comparator.comparingInt(Video::getId))
                 .collect(Collectors.toList());
 

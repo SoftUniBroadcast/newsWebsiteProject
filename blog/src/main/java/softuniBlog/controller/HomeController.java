@@ -158,6 +158,21 @@ public class HomeController {
         return "base-layout";
     }
 
+    @GetMapping("/profile/{id}")
+    public String profileView(Model model, @PathVariable Integer id, RedirectAttributes redirectAttributes){
+        if (!this.userRepository.exists(id)) {
+            redirectAttributes.addFlashAttribute("error", "Such user doesn't exist!");
+            return "redirect:/";
+        }
+
+        User user = this.userRepository.findOne(id);
+
+        model.addAttribute("user", user);
+        model.addAttribute("view", "user/user-details");
+
+        return "base-layout";
+    }
+
     @Transient
     private List<Article> GetSearchResults(String searchText, List<String> searchTypes) {
 

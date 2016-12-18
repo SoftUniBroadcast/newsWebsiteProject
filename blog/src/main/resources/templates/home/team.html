@@ -10,7 +10,7 @@
                 <th:block th:each="user : ${position.getUsers()}">
                     <div class="panel panel-default col-md-6">
                         <div class="panel-body">
-                            <h4 th:text="${user.fullName}"></h4>
+                            <h4><a th:href="@{/profile/{id}(id=${user.id})}" th:text="${user.fullName}"></a></h4>
                             <th:block th:if="${user.imagePath}">
                                 <img th:src="@{http://localhost:8080/images/{imagePath}(imagePath=${user.imagePath})}"
                                      height="400" width="400"/>

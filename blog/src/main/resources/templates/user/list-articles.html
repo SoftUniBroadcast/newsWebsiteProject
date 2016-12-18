@@ -10,6 +10,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -19,6 +20,9 @@
                         <td th:text="${article.id}"></td>
                         <td>
                             <a th:href="@{/article/{id}(id = ${article.id})}" th:text="${article.title}"> </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/category/{id}(id=${article.category.id})}" th:text="${article.category.name}"> </a>
                         </td>
                         <td>
                             <a th:href="@{/article/edit/{id}(id = ${article.id})}">Edit</a>

@@ -256,7 +256,7 @@ public class ArticleController {
         Article article = this.articleRepository.findOne(id);
 
         article.setLikes(article.getLikes() + 1);
-        article.setUsersLiked(article.getUsersLiked().add(user));
+//        article.setUsersLiked(article.getUsersLiked().add(user));
 
         this.articleRepository.saveAndFlush(article);
 

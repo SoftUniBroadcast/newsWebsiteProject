@@ -145,6 +145,7 @@ public class UserController {
                 .collect(Collectors.toList());
 
         model.addAttribute("articles", articles);
+        model.addAttribute("user", user);
         model.addAttribute("view", "user/list-articles");
 
         return "base-layout";
@@ -175,6 +176,7 @@ public class UserController {
                 .collect(Collectors.toList());
 
         model.addAttribute("videos", videos);
+        model.addAttribute("user", user);
         model.addAttribute("view", "user/list-videos");
 
         return "base-layout";
@@ -308,8 +310,8 @@ public class UserController {
             try {
                 file.transferTo(imageFile);
 
-                Integer index = imageFile.getPath().lastIndexOf("\\");
-                String path = imageFile.getPath().substring(index + 1);
+        //        Integer index = imageFile.getPath().lastIndexOf("\\");
+        //        String path = imageFile.getPath().substring(index + 1);
                 user.setImagePath(originalFileName);
 
                 this.userRepository.saveAndFlush(user);

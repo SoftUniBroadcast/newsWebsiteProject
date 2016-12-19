@@ -296,19 +296,21 @@ public class UserController {
 
         MultipartFile file = fileBindingModel.getPicture();
 
+        String root = System.getProperty("user.dir");
+
         if (file != null) {
 
-            String originalFileName = file.getOriginalFilename();
+            String originalFileName = user.getFullName() + file.getOriginalFilename();
 
             File imageFile = new File
-                    ("D:\\javaBroadcast\\newsWebsiteProject\\blog\\src\\main\\resources\\static\\images\\", originalFileName);
+                    ( root + "\\src\\main\\resources\\static\\images\\", originalFileName);
 
             try {
                 file.transferTo(imageFile);
 
                 Integer index = imageFile.getPath().lastIndexOf("\\");
                 String path = imageFile.getPath().substring(index + 1);
-                user.setImagePath(path);
+                user.setImagePath(originalFileName);
 
                 this.userRepository.saveAndFlush(user);
 

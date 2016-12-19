@@ -186,4 +186,9 @@ public class User {
     public boolean isAuthor(Comment comment) {
         return Objects.equals(this.getId(), comment.getAuthor().getId());
     }
+
+    @Transient
+    public boolean hasLiked(Article article) {
+        return this.getArticlesLiked().contains(article);
+    }
 }

@@ -237,6 +237,7 @@ public class ArticleController {
     }
 
     @PostMapping("/article/{id}/like")
+    @PreAuthorize("isAuthenticated()")
     public String likeProcess(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         if (!this.articleRepository.exists(id)) {
             redirectAttributes.addFlashAttribute("error", "Such article doesn't exist!");
@@ -248,15 +249,17 @@ public class ArticleController {
 
         User user = this.userRepository.findByEmail(principal.getUsername());
 
-        if (user.getArticlesLiked().contains(id)) {
-            redirectAttributes.addAttribute("error", "You have already liked this article.");
+        Article article = this.articleRepository.findOne(id);
+
+        if (user.getArticlesLiked().contains(article)) {
+            redirectAttributes.addFlashAttribute("error", "You have already liked this article!");
             return "redirect:/article/" + id;
         }
 
-        Article article = this.articleRepository.findOne(id);
-
         article.setLikes(article.getLikes() + 1);
-//        article.setUsersLiked(article.getUsersLiked().add(user));
+        Set<User> usersLiked = article.getUsersLiked();
+        usersLiked.add(user);
+        article.setUsersLiked(usersLiked);
 
         this.articleRepository.saveAndFlush(article);
 

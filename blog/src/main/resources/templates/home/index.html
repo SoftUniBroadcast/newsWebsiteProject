@@ -113,6 +113,16 @@
                 </div>
             </div>
 
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Most liked article</h3>
+                </div>
+                <div class="panel-body">
+                    <a th:href="@{/article/{id}(id=${mostLiked.id})}" th:text="${mostLiked.title}"></a>
+                    <p th:text="'Likes: ' + ${mostLiked.likes}"></p>
+                </div>
+            </div>
+
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Recent articles</h3>
@@ -138,8 +148,6 @@
                     </p>
                 </div>
             </div>
-
-
         </div>
 
     </div>

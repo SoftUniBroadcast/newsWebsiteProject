@@ -64,6 +64,12 @@ public class HomeController {
                 .limit(5)
                 .collect(Collectors.toList());
 
+        Article mostLiked = articles.stream()
+                .sorted((a, b) -> b.getLikes().compareTo(a.getLikes()))
+                .collect(Collectors.toList())
+                .get(0);
+
+        model.addAttribute("mostLiked", mostLiked);
         model.addAttribute("tags", tags);
         model.addAttribute("categories", categories);
         model.addAttribute("latestFiveArticles", latestFiveArticles);
@@ -147,10 +153,10 @@ public class HomeController {
             return "redirect:/search";
         }
 
-        String searchText = searchBindingModel.getSearchText();
+        String searchString = searchBindingModel.getSearchText();
         List<String> searchTypes = searchBindingModel.getSearchTypes();
 
-        List<Article> articles = GetSearchResults(searchText, searchTypes);
+        List<Article> articles = GetSearchResults(searchString, searchTypes);
 
         model.addAttribute("articles", articles);
         model.addAttribute("view", "home/search-results");

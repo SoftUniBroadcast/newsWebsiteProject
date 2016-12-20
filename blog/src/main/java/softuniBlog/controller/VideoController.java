@@ -20,6 +20,7 @@ import softuniBlog.repository.UserRepository;
 import softuniBlog.repository.VideoRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -61,10 +62,25 @@ public class VideoController {
             return "redirect:/video/create";
         }
 
+        String url = getUrlForEmbeddedVideo(videoBindingModel.getFullUrl());
+
+        List<Video> videos = this.videoRepository.findAll();
+
+        for (Video videoCheck : videos) {
+            if (videoCheck.getTitle().equals(videoBindingModel.getTitle())) {
+                redirectAttributes.addFlashAttribute("error", "Video with the given title already exists!");
+                return "redirect:/video/create";
+            }
+
+            if (videoCheck.getUrl().equals(url)){
+                redirectAttributes.addFlashAttribute("error", "Video with the given URL already exists!");
+                return "redirect:/video/create";
+            }
+        }
+
         UserDetails user = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 
-        String url = getUrlForEmbeddedVideo(videoBindingModel.getFullUrl());
 
         User author = this.userRepository.findByEmail(user.getUsername());
         User cameraman = this.userRepository.findOne(videoBindingModel.getCameramanId());
@@ -134,6 +150,20 @@ public class VideoController {
         String url = getUrlForEmbeddedVideo(videoBindingModel.getFullUrl());
         Article article = this.articleRepository.findOne(videoBindingModel.getArticleId());
         User cameraman = this.userRepository.findOne(videoBindingModel.getCameramanId());
+
+        List<Video> videos = this.videoRepository.findAll();
+
+        for (Video videoCheck : videos) {
+            if (videoCheck.getTitle().equals(videoBindingModel.getTitle()) && !video.getTitle().equals(videoBindingModel.getTitle())) {
+                redirectAttributes.addFlashAttribute("error", "Video with the given title already exists!");
+                return "redirect:/video/edit/" + id;
+            }
+
+            if (videoCheck.getUrl().equals(url) && !video.getUrl().equals(url)){
+                redirectAttributes.addFlashAttribute("error", "Video with the given URL already exists!");
+                return "redirect:/video/edit/" + id;
+            }
+        }
 
         video.setTitle(videoBindingModel.getTitle());
         video.setUrl(url);
